@@ -1,0 +1,37 @@
+
+package experiment8;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/AttendanceServlet")
+public class AttendanceServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String studentName = request.getParameter("studentName");
+        String date = request.getParameter("date");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "password");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO attendance (student_name, date) VALUES (?, ?)");
+            ps.setString(1, studentName);
+            ps.setString(2, date);
+            int i = ps.executeUpdate();
+            
+            if(i > 0) {
+                out.println("<h2>Attendance Recorded Successfully</h2>");
+            }
+            con.close();
+        } catch(Exception e) {
+            out.println("Error: " + e.getMessage());
+        }
+    }
+}
