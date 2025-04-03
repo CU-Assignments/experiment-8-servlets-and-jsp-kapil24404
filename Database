@@ -1,0 +1,25 @@
+CREATE DATABASE employees;
+USE employees;
+
+CREATE TABLE employee (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL
+);
+
+INSERT INTO employee (name, department) VALUES 
+('Kapil', 'IT'),
+('Garg', 'HR'), ('Abhi', 'Finance');
+
+CREATE DATABASE school;
+USE school;
+
+CREATE TABLE attendance (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_name VARCHAR(100) NOT NULL,
+    date DATE NOT NULL
+);
+
+INSERT INTO attendance (student_name, date) VALUES 
+('Kapil', '2025-04-03'),
+('Garg', '2025-04-02');
